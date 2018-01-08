@@ -64,33 +64,46 @@
                 alert("tree loaded");
             });
 
+            //$('#demo1').jstree({
+            //    'core': {
+            //        'data': [
+            //              {
+            //                  "text": "Root node 2",
+            //                  "state": {
+            //                      "opened": true,
+            //                      "selected": false
+            //                  },
+            //                  "children": [
+            //                    {
+            //                        "text": "Child 1",
+            //                        "id": "c0",
+            //                        "children": [
+            //                            {
+            //                                "text": "Child 11",
+            //                                "id": "c01"
+            //                            }
+            //                        ]
+            //                    },
+            //                    {
+            //                        "text": "Child 2",
+            //                        "id": "c1"
+            //                    }
+            //                  ]
+            //              }
+            //        ]
+            //    },
+            //    "plugins": ["themes", "html_data", 'checkbox', "types", "ui", "crrm"]
+            //});
+
             $('#demo1').jstree({
                 'core': {
-                    'data': [
-                       'Simple root node',
-                       {
-                           'text': 'Root node 2',
-                           'state': {
-                               'opened': true,
-                               'selected': true
-                           },
-                           'children': [
-                             { 'text': 'Child 1' },
-                             'Child 2'
-                           ]
-                       }
-                    ]
-                }
+                    'data': {
+                        "url": "http://localhost/MvcTreeView/jstree/GetNodes",
+                        "dataType": "json" // needed only if you do not supply JSON headers
+                    }
+                },
+                "plugins": ["themes", "html_data", 'checkbox', "types", "ui", "crrm"]
             });
-
-            //$('#demo3').jstree({
-            //    'core': {
-            //        'data': {
-            //            "url": "http://localhost/MvcTreeView/jstree/GetTreeNodes",
-            //            "dataType": "json" // needed only if you do not supply JSON headers
-            //        }
-            //    }
-            //});
         });
     </script>
 }

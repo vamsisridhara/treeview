@@ -1,9 +1,11 @@
 ﻿using MvcTreeView.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace MvcTreeView.Controllers
@@ -60,5 +62,46 @@ namespace MvcTreeView.Controllers
             return Json(G_JSTreeArray);
         }
 
+
+        [HttpGet]
+        [Route("getnodes")]
+        public IHttpActionResult getnodes()
+        {
+            using (TextReader fileReader = File.OpenText(
+                    Path.Combine(HttpContext.Current.Request.PhysicalApplicationPath,
+                    "json", "data.json")))
+            {
+                List<RootObject> obj = Newtonsoft.Json.JsonConvert
+                    .DeserializeObject<List<RootObject>>(fileReader.ReadToEnd());
+                return Ok(obj);
+            }
+
+        }
+    }
+
+    public class State
+    {
+        public bool opened { get; set; }
+        public bool selected { get; set; }
+    }
+
+    public class Child2
+    {
+        public string text { get; set; }
+        public string id { get; set; }
+    }
+
+    public class Child
+    {
+        public string text { get; set; }
+        public string id { get; set; }
+        public List<Child2> children { get; set; }
+    }
+
+    public class RootObject
+    {
+        public string text { get; set; }
+        public State state { get; set; }
+        public List<Child> children { get; set; }
     }
 }
