@@ -1,0 +1,19 @@
+﻿@model MvcTreeView.Models.Employee
+
+@foreach (var item in Model.Employees)
+{
+    <ul>
+        @if (item != null)
+        {
+            <li>
+                <a href="#" class="usr">
+                    @item.Name
+                </a>
+                @if (item.Employees.Count > 0)
+                {
+                    // @Html.Partial("Childrens", Model);
+                }
+            </li>
+        }
+    </ul>
+}

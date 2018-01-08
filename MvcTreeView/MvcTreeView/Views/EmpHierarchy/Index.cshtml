@@ -1,0 +1,96 @@
+﻿@model MvcTreeView.Models.Employee
+@{
+    ViewBag.Title = "Index";
+}
+
+@*
+    https://github.com/vakata/jstree/
+    https://simpledotnetsolutions.wordpress.com/2012/11/25/jstree-few-examples-with-asp-netc/
+*@
+<div id="demo1">
+</div>
+<div id="demo2">
+    <ul>
+        <li>
+            <a>Categories</a>
+            <ul>
+                <li>
+                    <a>Category 1</a>
+                    <ul>
+                        <li><a>Product A</a></li>
+                        <li><a>Product B</a></li>
+                        <li><a>Product C</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a>Category 2</a>
+                    <ul>
+                        <li><a>Product D</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div id="demo3">
+</div>
+<div id="divtree">
+    <ul id="tree">
+        <li>
+            <a href="#" class="usr">
+                @Model.Name
+            </a>
+            @Html.Partial("Childrens", Model)
+        </li>
+    </ul>
+</div>
+@section scripts {
+
+    <script>
+        $(function () {
+            $("#demo2").jstree({
+                "plugins": ["themes", "html_data", 'checkbox', "types", "ui", "crrm"]
+            }).bind("select_node.jstree", function (e, data) {
+                // var CurrObj = data.rslt.obj;
+                //Toggle on the click of that Node's name
+                // $("#demo1").jstree("toggle_node", data.rslt.obj);
+            })
+            .bind("hover_node.jstree", function (e, data) {
+                //on hover
+                //var nodeId = data.rslt.obj[0].id;
+            })
+            .bind("loaded.jstree", function (event, data) {
+                // $(this).jstree("open_all");
+                alert("tree loaded");
+            });
+
+            $('#demo1').jstree({
+                'core': {
+                    'data': [
+                       'Simple root node',
+                       {
+                           'text': 'Root node 2',
+                           'state': {
+                               'opened': true,
+                               'selected': true
+                           },
+                           'children': [
+                             { 'text': 'Child 1' },
+                             'Child 2'
+                           ]
+                       }
+                    ]
+                }
+            });
+
+            //$('#demo3').jstree({
+            //    'core': {
+            //        'data': {
+            //            "url": "http://localhost/MvcTreeView/jstree/GetTreeNodes",
+            //            "dataType": "json" // needed only if you do not supply JSON headers
+            //        }
+            //    }
+            //});
+        });
+    </script>
+}
